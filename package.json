@@ -1,0 +1,20 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "abc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ac"
+  ],
+  "author": "dhiraj",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "color": "^4.2.3",
+    "colors": "^1.4.0"
+  },
+  "type" : "module"
+}
