@@ -13,10 +13,13 @@ let b = 0;
 
 console.log("a: " + a + ", b: " + b);
 
-setTimeout(() => {
-  b = 20;
-}, 2000);
+let waitingData = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(20);
+  }, 2000);
+});
 
-console.log("a: " + a + ", b: " + b);
-
-console.log(a + b);
+waitingData.then((data) => {
+  b = data;
+  console.log(a + b);
+});
