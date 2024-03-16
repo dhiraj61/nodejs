@@ -10,5 +10,10 @@
     <h5>Name : <%= user.name %></h5>
     <h5>Email : <%= user.email %></h5>
     <h5>City : <%= user.city %></h5>
+    <ul>
+        <% user.skills.forEach((items)=>{%>
+            <li><%= items %></li>
+        <% }) %>
+    </ul>
 </body>
 </html>

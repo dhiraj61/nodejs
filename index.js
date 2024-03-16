@@ -15,6 +15,7 @@ app.get("/profile", (req, resp) => {
     name: "Dhiraj",
     email: "dhiraj@gmail.com",
     city: "Surat",
+    skills: ["c", "c++", "python"],
   };
   resp.render("profile", { user });
 });
@@ -23,7 +24,12 @@ app.get("/about", (req, resp) => {
   resp.sendFile(`${pathPublic}/About.html`);
 });
 
+app.get("/login", (req, resp) => {
+  resp.render("login");
+});
+
 app.get("*", (req, resp) => {
   resp.sendFile(`${pathPublic}/nopage.html`);
 });
+
 app.listen(3000);
