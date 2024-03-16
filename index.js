@@ -1,11 +1,16 @@
-const http = require("http");
-const data = require("./data");
-const { json } = require("express");
+const express = require("express");
+const app = express();
 
-http
-  .createServer((req, resp) => {
-    resp.writeHead(200, { "Content-Type": "applicatinjson" });
-    resp.write(JSON.stringify(data));
-    resp.end();
-  })
-  .listen(3000);
+app.get("/", (req, resp) => {
+  resp.send("Welcome, This Is Homepage");
+});
+
+app.get("/about", (req, resp) => {
+  resp.send("Welcome, This Is About Us Page");
+});
+
+app.get("/contactUs", (req, resp) => {
+  resp.send("Welcome, This Is Contact Us Page");
+});
+
+app.listen(3000);
