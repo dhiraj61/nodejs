@@ -1,35 +1,24 @@
 const express = require("express");
-const path = require("path");
-
 const app = express();
-const pathPublic = path.join(__dirname, "public");
 
-app.set("view engine", "ejs"); // set up ejs for templating
+const reqFilter = (req, resp, next) => {
+  if (!req.query.age) {
+    resp.send("Provide Your Age");
+  } else if (req.query.age < 18) {
+    resp.send("You are not eligible");
+  } else {
+    next();
+  }
+};
+
+app.use(reqFilter);
 
 app.get("/", (req, resp) => {
-  resp.sendFile(`${pathPublic}/index.html`);
+  resp.send("Welcome to Home Page");
 });
 
-app.get("/profile", (req, resp) => {
-  const user = {
-    name: "Dhiraj",
-    email: "dhiraj@gmail.com",
-    city: "Surat",
-    skills: ["c", "c++", "python"],
-  };
-  resp.render("profile", { user });
-});
-
-app.get("/about", (req, resp) => {
-  resp.sendFile(`${pathPublic}/About.html`);
-});
-
-app.get("/login", (req, resp) => {
-  resp.render("login");
-});
-
-app.get("*", (req, resp) => {
-  resp.sendFile(`${pathPublic}/nopage.html`);
+app.get("/user", (req, resp) => {
+  resp.send("User Details");
 });
 
 app.listen(3000);
