@@ -1,25 +1,22 @@
-const fs = require("fs");
-const path = require("path");
+// console.log("starting process");
 
-const dirPath = path.join(__dirname, "files");
-const filePath = `${dirPath}/file2.txt`;
+// // console.log("Logical Process");
 
-// fs.writeFileSync(filePath, "Hello How are You");
+// setTimeout(() => {
+//   console.log("Logical Process");
+// }, 2000);
 
-// fs.readFile(filePath, "utf-8", (err, items) => {
-//   console.log(items);
-// });
+// console.log("Process Completed");
 
-// fs.appendFile(filePath, " and this is file1.txt", (err) => {
-//   if (!err) {
-//     console.log(`Data appended to ${filePath}`);
-//   }
-// });
+let a = 10;
+let b = 0;
 
-// fs.rename(filePath, `${dirPath}/file3.txt`, (err) => {
-//   if (!err) {
-//     console.log("The file has been renamed!");
-//   }
-// });
+console.log("a: " + a + ", b: " + b);
 
-fs.unlinkSync(`${dirPath}/file3.txt`);
+setTimeout(() => {
+  b = 20;
+}, 2000);
+
+console.log("a: " + a + ", b: " + b);
+
+console.log(a + b);
