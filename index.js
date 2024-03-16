@@ -1,3 +1,10 @@
-import chalk from "chalk";
+const http = require("http");
+const data = require("./data");
 
-console.log(chalk.blue("Hello"));
+http
+  .createServer((req, resp) => {
+    resp.writeHead(200, { "Content-Type": "applicationjson" });
+    resp.write(JSON.stringify(data));
+    resp.end();
+  })
+  .listen(4000);
