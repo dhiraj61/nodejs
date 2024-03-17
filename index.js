@@ -1,19 +1,21 @@
-const express = require("express");
-require("./config");
-const mobiles = require("./collection");
+const express = require('express');
+const multer = require('multer');
 
 const app = express();
 
-app.use(express.json());
+const upload = multer({
+  storage:multer.diskStorage({
+    destination:function(req,file,cb){
+      cb(null,"uploads");
+    },
+    filename:function(req,file,cb){
+      cb(null,file.fieldname+"-"+Date.now()+".jpg")
+    }
+  })
+}).single("user_file");
 
-app.get("/:key", async (req, resp) => {
-  let data = await mobiles.find({
-    $or: [
-      { model: { $regex: req.params.key } },
-      { brand: { $regex: req.params.key } },
-    ],
-  });
-  resp.send(data);
+app.post("/",upload,(req,resp)=>{
+  resp.send("File Uploaded");
 });
 
-app.listen(3000);
+app.listen(4500);
