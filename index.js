@@ -1,42 +1,35 @@
-const mongoose = require("mongoose");
+const express = require("express");
+require("./config");
+const mobiles = require("./collection");
 
-const conn = mongoose.connect("mongodb://localhost:27017/electronic");
-const MobileSchema = new mongoose.Schema({
-  model: String,
-  price: Number,
-  brand: String,
+const app = express();
+
+app.use(express.json());
+
+app.post("/", async (req, resp) => {
+  let data = new mobiles(req.body);
+  let result = await data.save();
+  resp.send(result);
 });
 
-const saveInDb = async () => {
-  const Mobiles = mongoose.model("mobiles", MobileSchema);
-  let data = await Mobiles({
-    model: "A53",
-    price: 30000,
-    brand: "Samsung",
-  });
-  let result = await data.save();
-  console.log(result);
-};
+app.get("/", async (req, resp) => {
+  let data = await mobiles.find();
+  resp.send(data);
+});
 
-const updateInDb = async () => {
-  const Mobiles = mongoose.model("mobiles", MobileSchema);
-  let data = await Mobiles.updateOne(
-    { model: "A52" },
-    { $set: { price: 28500 } }
-  );
-  console.log(data);
-};
+app.put("/:_id", async (req, resp) => {
+  let data = await mobiles.updateOne(req.params, { $set: req.body });
+  resp.send("data updated");
+  if (data.acknowledged) {
+    console.log("Data updated successfully!");
+  }
+});
 
-const deleteInDb = async () => {
-  const Mobiles = mongoose.model("mobiles", MobileSchema);
-  let data = await Mobiles.deleteOne({ model: "A52" });
-  console.log(data);
-};
+app.delete("/:_id", async (req, resp) => {
+  let data = await mobiles.deleteOne(req.params);
+  if (data.deletedCount != 0) {
+    resp.send("Data Deleted Succefully");
+  }
+});
 
-const findInDb = async () => {
-  const Mobiles = mongoose.model("mobiles", MobileSchema);
-  let data = await Mobiles.find({});
-  console.log(data);
-};
-
-findInDb();
+app.listen(3000);
